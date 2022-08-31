@@ -36,6 +36,8 @@ public class ShoppingCartController {
 	public String addToCart(@ModelAttribute("shoppingCart") ShoppingCart cart, ModelMap model) {
 		repo.save(cart);
 		model.addAttribute("cartproducts", repo.findAll());
+		List<Product> products = (List<Product>) restTemplate.getForObject("http://localhost:8081/products", List.class);
+		model.addAttribute("products", products);
 		return "showAddCart";
 
 	}
